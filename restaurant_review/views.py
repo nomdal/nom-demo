@@ -11,7 +11,7 @@ from restaurant_review.models import Restaurant, Review
 
 def index(request):
     print('Request for index page received')
-
+    test_var = "test"
     restaurants = Restaurant.objects.annotate(avg_rating=Avg('review__rating')).annotate(review_count=Count('review'))
     return render(request, 'restaurant_review/index.html', {'restaurants': restaurants })
 
@@ -49,7 +49,7 @@ def add_restaurant(request):
         restaurant.street_address = street_address
         restaurant.description = description
         Restaurant.save(restaurant)
-                
+
         return HttpResponseRedirect(reverse('details', args=(restaurant.id,)))
 
 
@@ -73,5 +73,5 @@ def add_review(request, id):
         review.rating = rating
         review.review_text = review_text
         Review.save(review)
-                
-    return HttpResponseRedirect(reverse('details', args=(id,)))        
+
+    return HttpResponseRedirect(reverse('details', args=(id,)))
